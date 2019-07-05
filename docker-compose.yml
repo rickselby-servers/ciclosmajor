@@ -1,12 +1,43 @@
 version: '2.4'
+
 services:
+  app:
+    container_name: ciclosmajor-app
+    image: wordpress:5.1-php7.3-fpm-alpine
+    restart: always
+    volumes:
+      - site:/var/www/html
+
   web:
     container_name: ciclosmajor-web
     build:
       context: .
       dockerfile: Dockerfile
-      target: nginx
+    restart: always
+    depends_on:
+      - app
+    environment:
+      VIRTUAL_HOST: ${VIRTUAL_HOST}
+      LETSENCRYPT_HOST: ${VIRTUAL_HOST}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
     volumes:
       - ./src:/code/public
-    ports:
-      - "80:80"
+
+  redirect:
+    container_name: ciclosmajor-redirect
+    image: morbz/docker-web-redirect
+    restart: always
+    environment:
+      VIRTUAL_HOST: ${REDIRECT_VIRTUAL_HOST}
+      LETSENCRYPT_HOST: ${REDIRECT_VIRTUAL_HOST}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+      REDIRECT_TARGET: ${VIRTUAL_HOST}
+
+volumes:
+  site:
+
+networks:
+  default:
+    external:
+      name: ciclosmajor
+
