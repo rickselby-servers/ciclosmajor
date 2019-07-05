@@ -21,7 +21,7 @@ services:
       LETSENCRYPT_HOST: ${VIRTUAL_HOST}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
     volumes:
-      - ./src:/code/public
+      - site:/var/www/html
 
   redirect:
     container_name: ciclosmajor-redirect
