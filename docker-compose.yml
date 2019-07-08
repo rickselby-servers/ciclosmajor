@@ -3,7 +3,8 @@ version: '2.4'
 services:
   app:
     container_name: ciclosmajor-app
-    image: wordpress:5.1-php7.3-fpm-alpine
+    build:
+      context: ./wordpress
     restart: always
     volumes:
       - site:/var/www/html
@@ -11,8 +12,7 @@ services:
   web:
     container_name: ciclosmajor-web
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ./nginx
     restart: always
     depends_on:
       - app
@@ -22,7 +22,6 @@ services:
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
     volumes:
       - site:/var/www/html
-      - ./php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
 
   redirect:
     container_name: ciclosmajor-redirect
