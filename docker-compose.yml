@@ -3,23 +3,21 @@ version: '2.4'
 services:
   app:
     container_name: ciclosmajor-app
-    build:
-      context: ./wordpress
+    build: wordpress
     restart: always
     volumes:
       - site:/var/www/html
 
   web:
     container_name: ciclosmajor-web
-    build:
-      context: ./nginx
+    build: nginx
     restart: always
     depends_on:
       - app
     environment:
-      VIRTUAL_HOST: ${VIRTUAL_HOST}
-      LETSENCRYPT_HOST: ${VIRTUAL_HOST}
-      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+      VIRTUAL_HOST: www.ciclosmajor.com
+      LETSENCRYPT_HOST: www.ciclosmajor.com
+      LETSENCRYPT_EMAIL:
     volumes:
       - site:/var/www/html
 
@@ -28,16 +26,14 @@ services:
     image: morbz/docker-web-redirect
     restart: always
     environment:
-      VIRTUAL_HOST: ${REDIRECT_VIRTUAL_HOST}
-      LETSENCRYPT_HOST: ${REDIRECT_VIRTUAL_HOST}
-      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
-      REDIRECT_TARGET: ${VIRTUAL_HOST}
+      VIRTUAL_HOST: ciclosmajor.com
+      LETSENCRYPT_HOST: ciclosmajor.com
+      LETSENCRYPT_EMAIL:
+      REDIRECT_TARGET: www.ciclosmajor.com
 
 volumes:
   site:
 
 networks:
   default:
-    external:
-      name: ciclosmajor
-
+    name: ciclosmajor
