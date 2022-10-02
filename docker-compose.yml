@@ -15,21 +15,11 @@ services:
     depends_on:
       - app
     environment:
-      VIRTUAL_HOST: www.ciclosmajor.com
-      LETSENCRYPT_HOST: www.ciclosmajor.com
+      VIRTUAL_HOST: wp.ciclosmajor.com
+      LETSENCRYPT_HOST: wp.ciclosmajor.com
       LETSENCRYPT_EMAIL:
     volumes:
       - site:/var/www/html
-
-  redirect:
-    container_name: ciclosmajor-redirect
-    image: morbz/docker-web-redirect
-    restart: always
-    environment:
-      VIRTUAL_HOST: ciclosmajor.com
-      LETSENCRYPT_HOST: ciclosmajor.com
-      LETSENCRYPT_EMAIL:
-      REDIRECT_TARGET: www.ciclosmajor.com
 
 volumes:
   site:
