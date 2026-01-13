@@ -29,6 +29,16 @@ services:
       LETSENCRYPT_EMAIL:
       REDIRECT_TARGET: www.ciclosmajor.com
 
+  redirect-wp:
+    container_name: ciclosmajor-redirect
+    image: morbz/docker-web-redirect
+    restart: always
+    environment:
+      VIRTUAL_HOST: wp.ciclosmajor.com
+      LETSENCRYPT_HOST: wp.ciclosmajor.com
+      LETSENCRYPT_EMAIL:
+      REDIRECT_TARGET: www.ciclosmajor.com
+
 volumes:
   site:
 
