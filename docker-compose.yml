@@ -30,7 +30,7 @@ services:
       REDIRECT_TARGET: www.ciclosmajor.com
 
   redirect-wp:
-    container_name: ciclosmajor-redirect
+    container_name: ciclosmajor-redirect-wp
     image: morbz/docker-web-redirect
     restart: always
     environment:
