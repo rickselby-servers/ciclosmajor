@@ -13,8 +13,8 @@ services:
     depends_on:
       - app
     environment:
-      VIRTUAL_HOST: www.ciclosmajor.com,wp.ciclosmajor.com
-      LETSENCRYPT_HOST: www.ciclosmajor.com,wp.ciclosmajor.com
+      VIRTUAL_HOST: www.ciclosmajor.com
+      LETSENCRYPT_HOST: www.ciclosmajor.com
       LETSENCRYPT_EMAIL:
     volumes:
       - site:/var/www/html
